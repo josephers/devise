@@ -4,6 +4,11 @@ class Devise::OmniauthCallbacksController < DeviseController
     redirect_to after_omniauth_failure_path_for(resource_name)
   end
 
+  def facebook
+    auth_hash = request.env['omniauth.auth']
+    @user = User.find_or_initialize_by_email(auth_hash[:info][:email])
+    logger.info auth_hash
+  end
   protected
 
   def failed_strategy
