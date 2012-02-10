@@ -12,7 +12,7 @@ class Devise::RegistrationsController < DeviseController
   # POST /resource
   def create
     build_resource
-    
+    binding.remote_pry
     if existing_resource = resource_class.find_by_email(resource.email) and existing_resource.valid_password?(resource.password)
         sign_in_and_redirect resource, event: :authentication and return
     end
