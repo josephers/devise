@@ -14,7 +14,7 @@ class Devise::RegistrationsController < DeviseController
     build_resource
     
     if existing_resource = resource_class.find_by_email(resource.email) and existing_resource.valid_password?(resource.password)
-        sign_in_and_redirect resource, event: :authentication
+        sign_in_and_redirect resource, event: :authentication and return
     end
     if resource.save
       if resource.active_for_authentication?
