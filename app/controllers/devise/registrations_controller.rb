@@ -12,9 +12,8 @@ class Devise::RegistrationsController < DeviseController
   # POST /resource
   def create
     build_resource
-    binding.remote_pry
     if existing_resource = resource_class.find_by_email(resource.email) and existing_resource.valid_password?(resource.password)
-        sign_in(resource_name, resource)
+        sign_in(resource_name, existing_resource)
         respond_with resource, :location => after_sign_up_path_for(resource)
     else
       if resource.save
